@@ -17,7 +17,7 @@ public class teacherService implements ITeacher {
     public Mono<generalResponse> addTeacher(teacher teacher) {
         teacherRepo.save(teacher);
         return Mono.just(generalResponse.builder().action("success")
-                .message("Teacher successfully created").build());
+                .message("Teacher successfully created With Id: " + teacher.getTeacherId()).build());
     }
 
     public teacher getTeacherById(Long teacherId) {

@@ -1,5 +1,6 @@
 package shri.first.schoolproject.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +9,9 @@ import lombok.NoArgsConstructor;
 
 import javax.security.auth.Subject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "teachers")
@@ -19,7 +22,7 @@ import java.util.List;
 public class teacher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long teacherId;
 
     @Column(nullable = false)
@@ -29,10 +32,11 @@ public class teacher {
     @JoinColumn(name = "subject_id", nullable = false)
     private subject subject;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JsonManagedReference
     @JoinTable(
             name = "teacher_studentClass",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id"))
-    private List<studentClass> studentClasses = new ArrayList<>();
+    private Set<studentClass> studentClasses = new HashSet<>();
 }
