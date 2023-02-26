@@ -6,4 +6,6 @@ import shri.first.schoolproject.Entity.teacher;
 
 public interface ITeacher {
     Mono<generalResponse> addTeacher(teacher teacher);
+
+    teacher getTeacherById(Long teacherId);
 }

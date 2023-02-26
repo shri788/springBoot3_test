@@ -25,15 +25,14 @@ public class teacher {
     @Column(nullable = false)
     private String teacherName;
 
-    @Column(name = "subject_id",insertable = false, updatable = false)
-    private Long subjectId;
-
     @OneToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
+    @JoinColumn(name = "subject_id", nullable = false)
     private subject subject;
 
-//    @OneToMany
-//    @JoinColumn(name="className")
-//    private String className;
-//    private List<studentClass> studentClassList = new ArrayList<studentClass>();
+    @ManyToMany
+    @JoinTable(
+            name = "teacher_studentClass",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id"))
+    private List<studentClass> studentClasses = new ArrayList<>();
 }

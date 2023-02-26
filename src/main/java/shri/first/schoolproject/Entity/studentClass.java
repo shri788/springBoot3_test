@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "studentClasses")
 @Data
@@ -20,4 +23,7 @@ public class studentClass {
 
     @Column(nullable = false)
     private String className;
+
+    @ManyToMany(mappedBy = "studentClasses")
+    private List<teacher> teachers = new ArrayList<>();
 }
